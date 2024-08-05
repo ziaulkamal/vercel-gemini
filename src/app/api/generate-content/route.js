@@ -46,7 +46,7 @@ export async function GET(req) {
         params: {
           key: process.env.GEMINI_API_KEY
         },
-        timeout: 10000 // 10 detik
+        timeout: 60000 // 10 detik
       }
     );
 
