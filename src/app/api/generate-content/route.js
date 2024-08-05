@@ -41,18 +41,23 @@ export async function GET(req) {
       },
       {
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.GEMINI_API_KEY}`
         },
-        params: {
-          key: process.env.GEMINI_API_KEY
-        },
-        timeout: 60000 // 10 detik
+        timeout: 60000 // 60 detik
       }
     );
 
+    // Debugging output
+    // Uncomment the following line to see the response structure
+    // console.log('API Response:', response.data);
+
     const result = response.data;
 
-    return new Response(JSON.stringify(result.candidates[0].content.parts[0].text || 'No content found'), {
+    // Safely access the content
+    const content = result.candidates?.[0]?.content?.parts?.[0]?.text || 'No content found';
+
+    return new Response(JSON.stringify({ content }), {
       status: 200,
       headers: {
         'Content-Type': 'application/json'
