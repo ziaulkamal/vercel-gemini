@@ -48,13 +48,8 @@ export async function GET(req) {
       }
     );
 
-    // Debugging output
-    // Uncomment the following line to see the response structure
-    // console.log('API Response:', response.data);
-
     const result = response.data;
 
-    // Safely access the content
     const content = result.candidates?.[0]?.content?.parts?.[0]?.text || 'No content found';
 
     return new Response(JSON.stringify({ content }), {
